@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex h-screen bg-gray-100">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-blue-900 text-white p-3 flex flex-col h-screen">
+        <h1 class="text-xl font-bold mb-6">Sidenav</h1>
+        <nav class="flex flex-col space-y-4">
+            <a href="/dshbrd/home/" class="p-2 rounded transition duration-300 text-white hover:bg-white hover:!text-blue-900 no-underline">
+             Home
+         </a>
+         <a href="/dshbrd/report/" class="p-2 rounded transition duration-300 text-white hover:bg-white hover:!text-blue-900 no-underline">
+             Reports
+         </a>
+         <a href="/dshbrd/settings/" class="p-2 rounded transition duration-300 text-white hover:bg-white hover:!text-blue-900 no-underline">
+             Settings
+         </a>
+         
+
+        </nav>
+    </aside>
+    
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col">
+        <!-- Header -->
+        <header class="bg-white shadow p-4 flex justify-between items-center">
+            <h2 class="text-xl font-semibold">Dashboard</h2>
+            <a href="{% url 'portfolio:index' %}" class="bg-blue-600 text-white px-4 py-2 rounded transition duration-300 text-white hover:bg-white hover:!text-blue-900 no-underline">
+                back
+            </a>      
+        </header>
+
+        <!-- Content Area -->
+        <main class="p-6">
+            {% block body %}
+            <h1 class="text-2xl font-bold">Home</h1>
+            <p class="mt-2">Welcome to the home page!</p>
+            {% endblock %}
+        </main>
+    </div>
+</body>
+</html>
