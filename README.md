@@ -1,97 +1,190 @@
-# Library Management System - User Authentication API
+# Library Management System API Documentation
 
-## API Endpoints
-
-### 1. Register a New User
-- **Method:** POST
-- **Endpoint:** `/api/auth/register/`
-- **Headers:**
-  - `Content-Type: application/json`
-- **Request Body:**
-```json
-{
-  "username": "testuser",
-  "email": "test@example.com",
-  "password": "StrongPass123!",
-  "password2": "StrongPass123!"
-}
+## Authentication
+All endpoints require authentication. Include the JWT token in the Authorization header:
 ```
-- **Sample Response:**
-```json
-{
-  "message": "User  registered successfully.",
-  "user": {
-    "username": "testuser",
-    "email": "test@example.com"
+Authorization: Bearer your_jwt_token
+```
+
+## Books API Endpoints
+
+### List/Create Books
+- **Method**: GET, POST
+- **URL**: `/api/books/`
+- **Headers**:
+  ```
+  Content-Type: application/json
+  Authorization: Bearer your_jwt_token
+  ```
+- **GET Response**:
+  ```json
+  [
+    {
+      "id": 1,
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "category": 1,
+      "status": "available",
+      "date_added": "2024-03-19T10:00:00Z"
+    }
+  ]
+  ```
+- **POST Request Body**:
+  ```json
+  {
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "category": 1,
+    "status": "available"
   }
-}
-```
+  ```
 
----
+### Get/Update/Delete Book
+- **Method**: GET, PUT, DELETE
+- **URL**: `/api/books/<id>/`
+- **Headers**:
+  ```
+  Content-Type: application/json
+  Authorization: Bearer your_jwt_token
+  ```
+- **GET Response**:
+  ```json
+  {
+    "id": 1,
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "category": 1,
+    "status": "available",
+    "date_added": "2024-03-19T10:00:00Z"
+  }
+  ```
+- **PUT Request Body**:
+  ```json
+  {
+    "title": "Updated Title",
+    "status": "borrowed"
+  }
+  ```
 
-### 2. Login (Obtain JWT Token)
-- **Method:** POST
-- **Endpoint:** `/api/auth/login/`
-- **Headers:**
-  - `Content-Type: application/json`
-- **Request Body:**
+## Categories API Endpoints
+
+### List/Create Categories
+- **Method**: GET, POST
+- **URL**: `/api/categories/`
+- **Headers**:
+  ```
+  Content-Type: application/json
+  Authorization: Bearer your_jwt_token
+  ```
+- **GET Response**:
+  ```json
+  [
+    {
+      "id": 1,
+      "name": "Fiction",
+      "description": "Fictional literature"
+    }
+  ]
+  ```
+- **POST Request Body**:
+  ```json
+  {
+    "name": "Fiction",
+    "description": "Fictional literature"
+  }
+  ```
+
+### Get/Update/Delete Category
+- **Method**: GET, PUT, DELETE
+- **URL**: `/api/categories/<id>/`
+- **Headers**:
+  ```
+  Content-Type: application/json
+  Authorization: Bearer your_jwt_token
+  ```
+
+## Borrow Logs API Endpoints
+
+### List/Create Borrow Logs
+- **Method**: GET, POST
+- **URL**: `/api/borrow-logs/`
+- **Headers**:
+  ```
+  Content-Type: application/json
+  Authorization: Bearer your_jwt_token
+  ```
+- **GET Response**:
+  ```json
+  [
+    {
+      "id": 1,
+      "book": 1,
+      "borrower_name": "John Doe",
+      "date_borrowed": "2024-03-19T10:00:00Z",
+      "is_returned": false,
+      "date_returned": null
+    }
+  ]
+  ```
+- **POST Request Body**:
+  ```json
+  {
+    "book": 1,
+    "borrower_name": "John Doe",
+    "is_returned": false
+  }
+  ```
+
+### Get/Update/Delete Borrow Log
+- **Method**: GET, PUT, DELETE
+- **URL**: `/api/borrow-logs/<id>/`
+- **Headers**:
+  ```
+  Content-Type: application/json
+  Authorization: Bearer your_jwt_token
+  ```
+- **GET Response**:
+  ```json
+  {
+    "id": 1,
+    "book": 1,
+    "borrower_name": "John Doe",
+    "date_borrowed": "2024-03-19T10:00:00Z",
+    "is_returned": false,
+    "date_returned": null
+  }
+  ```
+- **PUT Request Body** (for returning a book):
+  ```json
+  {
+    "is_returned": true
+  }
+  ```
+
+## Query Parameters
+
+### Books
+- `?category=Fiction` - Filter by category name
+- `?status=available` - Filter by status
+- `?author=Smith` - Filter by author
+- `?title=Python` - Filter by title
+
+### Borrow Logs
+- `?borrower=John` - Filter by borrower name
+- `?is_returned=true` - Filter by return status
+
+## Status Codes
+- 200: Success
+- 201: Created
+- 400: Bad Request
+- 401: Unauthorized
+- 403: Forbidden
+- 404: Not Found
+- 500: Server Error
+
+## Error Responses
 ```json
 {
-  "username": "testuser",
-  "password": "StrongPass123!"
+  "error": "Error message description"
 }
 ```
-- **Sample Response:**
-```json
-{
-  "refresh": "<refresh_token>",
-  "access": "<access_token>"
-}
-```
-
----
-
-### 3. Access Protected Route
-- **Method:** GET
-- **Endpoint:** `/api/auth/protect/`
-- **Headers:**
-  - `Authorization: Bearer <access_token>`
-- **Sample Response (Success):**
-```json
-{
-  "message": "Hello, testuser!"
-}
-```
-- **Sample Response (Unauthorized):**
-```json
-{
-  "detail": "Authentication credentials were not provided."
-}
-```
-
----
-
-### 4. Refresh Token
-- **Method:** POST
-- **Endpoint:** `/api/auth/token/refresh/`
-- **Headers:**
-  - `Content-Type: application/json`
-- **Request Body:**
-```json
-{
-  "refresh": "<refresh_token>"
-}
-```
-- **Sample Response:**
-```json
-{
-  "access": "<new_access_token>"
-}
-```
-
----
-
-## Notes
-- All endpoints are prefixed with `/api/auth/`.
-- Use the `access` token in the `Authorization` header as `Bearer <access_token>` for protected routes.
-- Replace `<access_token>` and `<refresh_token>` with the actual tokens received from the login endpoint.
