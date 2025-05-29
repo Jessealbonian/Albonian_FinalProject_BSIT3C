@@ -6,6 +6,31 @@ All endpoints require authentication. Include the JWT token in the Authorization
 Authorization: Bearer your_jwt_token
 ```
 
+## Rate Limiting
+The API implements rate limiting to prevent abuse. The following limits are in place:
+
+- **Books API**:
+  - GET requests: 3 requests per minute
+  - POST requests: 3 requests per minute
+
+- **Categories API**:
+  - GET requests: 3 requests per minute
+  - POST requests: 3 requests per minute
+
+- **Borrow Logs API**:
+  - GET requests: 3 requests per minute
+  - POST requests: 3 requests per minute
+
+When rate limit is exceeded, the API will respond with:
+```json
+{
+  "error": "Too many requests",
+  "detail": "Please wait 60 seconds before trying again.",
+  "retry_after": 60
+}
+```
+Status Code: 429 (Too Many Requests)
+
 ## Books API Endpoints
 
 ### List/Create Books
