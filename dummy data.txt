@@ -1,0 +1,131 @@
+# Books Dummy Data (POST /api/books/)
+[
+    {
+        "title": "The Great Gatsby",
+        "author": "F. Scott Fitzgerald",
+        "category": 1,
+        "status": "available"
+    },
+    {
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee",
+        "category": 1,
+        "status": "available"
+    },
+    {
+        "title": "1984",
+        "author": "George Orwell",
+        "category": 1,
+        "status": "available"
+    },
+    {
+        "title": "The Art of Programming",
+        "author": "Donald Knuth",
+        "category": 2,
+        "status": "available"
+    },
+    {
+        "title": "Clean Code",
+        "author": "Robert C. Martin",
+        "category": 2,
+        "status": "available"
+    }
+]
+
+# Categories Dummy Data (POST /api/categories/)
+[
+    {
+        "name": "Fiction",
+        "description": "Fictional literature and novels"
+    },
+    {
+        "name": "Programming",
+        "description": "Computer programming and software development"
+    },
+    {
+        "name": "Science",
+        "description": "Scientific books and research"
+    },
+    {
+        "name": "History",
+        "description": "Historical books and accounts"
+    },
+    {
+        "name": "Biography",
+        "description": "Biographical accounts and memoirs"
+    }
+]
+
+# Borrow Logs Dummy Data (POST /api/borrow-logs/)
+[
+    {
+        "book": 1,
+        "borrower_name": "John Doe",
+        "is_returned": false
+    },
+    {
+        "book": 2,
+        "borrower_name": "Jane Smith",
+        "is_returned": false
+    },
+    {
+        "book": 3,
+        "borrower_name": "Mike Johnson",
+        "is_returned": true
+    },
+    {
+        "book": 4,
+        "borrower_name": "Sarah Williams",
+        "is_returned": false
+    },
+    {
+        "book": 5,
+        "borrower_name": "David Brown",
+        "is_returned": true
+    }
+]
+
+# Student Registration Dummy Data (POST /api/studentregister/)
+[
+    {
+        "firstname": "John",
+        "middlename": "Smith",
+        "lastname": "Doe",
+        "suffix": "Jr",
+        "email": "john.doe@example.com"
+    },
+    {
+        "firstname": "Jane",
+        "middlename": "Marie",
+        "lastname": "Smith",
+        "suffix": "",
+        "email": "jane.smith@example.com"
+    },
+    {
+        "firstname": "Michael",
+        "middlename": "James",
+        "lastname": "Johnson",
+        "suffix": "III",
+        "email": "michael.j@example.com"
+    },
+    {
+        "firstname": "Sarah",
+        "middlename": "Elizabeth",
+        "lastname": "Williams",
+        "suffix": "",
+        "email": "sarah.w@example.com"
+    },
+    {
+        "firstname": "David",
+        "middlename": "Robert",
+        "lastname": "Brown",
+        "suffix": "Sr",
+        "email": "david.brown@example.com"
+    }
+]
+
+# Notes for Postman:
+# 1. For Student Registration and Borrow Logs, you need to be authenticated
+# 2. For Student Registration with image, use form-data instead of raw JSON
+# 3. For Borrow Logs, make sure the book IDs exist in your database
+# 4. For Books, make sure the category IDs exist in your database
