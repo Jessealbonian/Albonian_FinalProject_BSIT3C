@@ -40,9 +40,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'users',
-     'books',
-     'borrow_logs',
- ]
+    'books',
+    'borrow_logs',
+    'studentregister',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

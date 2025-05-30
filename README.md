@@ -21,6 +21,10 @@ The API implements rate limiting to prevent abuse. The following limits are in p
   - GET requests: 3 requests per minute
   - POST requests: 3 requests per minute
 
+- **Student Registration API**:
+  - GET requests: 3 requests per minute
+  - POST requests: 3 requests per minute
+
 When rate limit is exceeded, the API will respond with:
 ```json
 {
@@ -30,6 +34,77 @@ When rate limit is exceeded, the API will respond with:
 }
 ```
 Status Code: 429 (Too Many Requests)
+
+## Student Registration API Endpoints
+
+### List/Create Student Registration
+- **Method**: GET, POST
+- **URL**: `/api/studentregister/`
+- **Headers**:
+  ```
+  Content-Type: multipart/form-data
+  Authorization: Bearer your_jwt_token
+  ```
+- **GET Response**:
+  ```json
+  [
+    {
+      "id": 1,
+      "user": 1,
+      "image": "student-imgs/profile.jpg",
+      "firstname": "John",
+      "middlename": "Smith",
+      "lastname": "Doe",
+      "suffix": "Jr",
+      "email": "john.doe@example.com"
+    }
+  ]
+  ```
+- **POST Request Body** (multipart/form-data):
+  ```
+  firstname: John
+  middlename: Smith
+  lastname: Doe
+  suffix: Jr
+  email: john.doe@example.com
+  image: [file upload]
+  ```
+  Note: 
+  - Image is optional
+  - Image must be less than 2MB
+  - Supported image formats: .jpg, .jpeg, .png, .webp
+  - Image will be automatically cropped to 1:1 aspect ratio and resized if larger than 500x500
+
+### Get/Update/Delete Student Registration
+- **Method**: GET, PUT, DELETE
+- **URL**: `/api/studentregister/<id>/`
+- **Headers**:
+  ```
+  Content-Type: multipart/form-data
+  Authorization: Bearer your_jwt_token
+  ```
+- **GET Response**:
+  ```json
+  {
+    "id": 1,
+    "user": 1,
+    "image": "student-imgs/profile.jpg",
+    "firstname": "John",
+    "middlename": "Smith",
+    "lastname": "Doe",
+    "suffix": "Jr",
+    "email": "john.doe@example.com"
+  }
+  ```
+- **PUT Request Body** (multipart/form-data):
+  ```
+  firstname: Updated Name
+  middlename: Updated Middle
+  lastname: Updated Last
+  suffix: Sr
+  email: updated.email@example.com
+  image: [file upload]
+  ```
 
 ## Books API Endpoints
 
